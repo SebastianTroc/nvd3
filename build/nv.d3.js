@@ -1,4 +1,4 @@
-/* nvd3 version 1.7.1(https://github.com/novus/nvd3) 2015-02-08 */
+/* nvd3 version 1.7.1(https://github.com/novus/nvd3) 2015-05-06 */
 (function(){
 
 // set up main nv object on window
@@ -3212,6 +3212,7 @@ nv.models.discreteBarChart = function() {
         , showXAxis = true
         , showYAxis = true
         , rightAlignYAxis = false
+        , reduceXTicks = true // if false a tick will show for every data point
         , staggerLabels = false
         , tooltips = true
         , tooltip = function(key, x, y, e, graph) {
@@ -3353,6 +3354,15 @@ nv.models.discreteBarChart = function() {
                         .selectAll('text')
                         .attr('transform', function(d,i,j) { return 'translate(0,' + (j % 2 == 0 ? '5' : '17') + ')' })
                 }
+
+                if (reduceXTicks) {
+                    xTicks
+                        .selectAll('text')
+                        .filter(function(d,i) {
+                            return i % Math.ceil(data[0].values.length / (availableWidth / 100)) !== 0;
+                        })
+                        .style('opacity', 0);
+                }
             }
 
             if (showYAxis) {
@@ -3424,6 +3434,7 @@ nv.models.discreteBarChart = function() {
         tooltips:    {get: function(){return tooltips;}, set: function(_){tooltips=_;}},
         tooltipContent:    {get: function(){return tooltip;}, set: function(_){tooltip=_;}},
         noData:    {get: function(){return noData;}, set: function(_){noData=_;}},
+        reduceXTicks:    {get: function(){return reduceXTicks;}, set: function(_){reduceXTicks=_;}},
 
         // options that require extra logic in the setter
         margin: {get: function(){return margin;}, set: function(_){

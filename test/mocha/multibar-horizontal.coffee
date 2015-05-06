@@ -42,6 +42,7 @@ describe 'NVD3', ->
             showLegend: true
             showXAxis: true
             showYAxis: true
+            reduceXTicks: true
             tooltips: true
             tooltipContent: (key,x,y)-> "<h3>#{key}</h3>"
             noData: 'No Data Available'
