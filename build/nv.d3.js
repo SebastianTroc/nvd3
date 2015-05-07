@@ -1,4 +1,4 @@
-/* nvd3 version 1.7.1(https://github.com/novus/nvd3) 2015-05-06 */
+/* nvd3 version 1.7.1(https://github.com/novus/nvd3) 2015-05-07 */
 (function(){
 
 // set up main nv object on window
@@ -7580,11 +7580,6 @@ nv.models.multiBarHorizontalChart = function() {
             // Legend
             if (showLegend) {
                 legend.width(availableWidth - controlWidth());
-
-                if (multibar.barColor())
-                    data.forEach(function(series,i) {
-                        series.color = d3.rgb('#ccc').darker(i * 1.5).toString();
-                    });
 
                 g.select('.nv-legendWrap')
                     .datum(data)
